@@ -37,14 +37,14 @@ def efm_trajectory(db, beta, fermion, pionKey, rhoKey, marker=None):
 
     plt.errorbar(pionData.keys(), getAvg(pionData), getErr(pionData),
         linestyle="None",marker=marker,markerfacecolor="None",
-        label='pion'
+        label='$\\pi$'
     )
     plt.errorbar(rhoData.keys(), getAvg(rhoData), getErr(rhoData),
         linestyle="None",marker=marker,markerfacecolor="None",
-        label='rho'
+        label='$\\rho$'
     )
 
-    plt.ylabel('aE')
-    plt.xlabel('kappa')
+    plt.ylabel('$aE$')
+    plt.xlabel('$\\kappa$')
     plt.title('wilson fermions, beta={}'.format(beta))
     plt.legend()
