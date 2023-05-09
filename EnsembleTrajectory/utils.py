@@ -44,7 +44,7 @@ def efm_trajectory(db, beta, fermion, pionKey, rhoKey, marker=None):
         label='$\\rho$'
     )
 
-    plt.ylabel('$aE$')
-    plt.xlabel('$\\kappa$')
-    plt.title('wilson fermions, beta={}'.format(beta))
+    plt.ylabel(r'$aE$')
+    plt.xlabel(r'$\kappa$')
+    plt.title(r'wilson fermions, $\beta={}$'.format(beta[4:].replace('p','.')))
     plt.legend()
