@@ -24,17 +24,21 @@ def log_eff_mass(c):
   for t in range(len(avg)-1):
     res.append(math.log(avg[t]/avg[t+1]))
   return res
-  
 
-def plot_pion(fileBase,NT,cut=0,b=1):
+def get_data(fileBase, gamma, NT):  
   data=[]
-  with open(os.path.join(fileBase,'G5.dat')) as f:
+  with open(os.path.join(fileBase,'G{}.dat'.format(gamma))) as f:
     for line in f:
       cols=line.split()
       data.append(float(cols[1]))# we only need real part
 
   corrs=np.split(np.array(data),len(data)/NT)
   corrs=[fold_corr(c,NT) for c in corrs]
+
+  return corrs
+
+def plot_pion(fileBase,NT,cut=0,b=1):
+  corrs=get_data(fileBase, 5, NT)
   corrs=corrs[cut+1:]
   # corrs is now a NT x NCFG array
 
@@ -47,15 +51,8 @@ def plot_pion(fileBase,NT,cut=0,b=1):
 
 def plot_rho(fileBase,NT,cut=0,b=1):
   idx=0
-  for filename in ['G1.dat','G2.dat','G3.dat']:
-    data=[]
-    with open(os.path.join(fileBase,filename)) as f:
-      for line in f:
-        cols=line.split()
-        data.append(float(cols[1]))# we only need real part
-    
-    corrs=np.split(np.array(data),len(data)/NT)
-    corrs=[fold_corr(c,NT) for c in corrs]
+  for gamma in [1,2,3]:
+    corrs=get_data(fileBase,gamma,NT)
     corrs=corrs[cut+1:]
     # corrs is now a NT x NCFG array
 

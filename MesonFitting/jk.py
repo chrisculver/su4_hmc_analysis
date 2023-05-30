@@ -28,13 +28,16 @@ def jackKnife(func, data, b=1):
 
 
 def jackKnifeCov(func, data, b=1):
-  samples=[jackKnifeSamples(d,b) for d in data]
-  vals=[[func(s) for s in var] for var in samples]
-  
-  # adding bias is true and a factor of (N-1) 
-  # has cov match regular jckknife variance
-  return [[np.mean(v) for v in vals], np.cov(vals,bias=True)*(len(vals[0])-1)]
+  samples=jackKnifeSamples(data,b)
+  vals=np.array([func(s) for s in samples])
 
+  nm0 = lambda data : np.mean(data, axis=0)
+
+  cov = np.array([[nm0(vals[:,i]*vals[:,j])-nm0(vals[:,i])*nm0(vals[:,j]) 
+                    for i in range(len(vals[0]))] 
+                    for j in range(len(vals[0]))])*(len(vals)-1)
+
+  return [np.mean(vals,axis=0), cov]
 
 
 #data1=[1.1,1.0,1.2,1.5,1.2,1.3]
