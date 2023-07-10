@@ -19,7 +19,7 @@ def log_effective_mass(corr):
 def cosh_effective_mass(corr):
     avg=np.mean(corr, axis=0)
     res=[]
-
-    for t in range(len(avg)-1):
-        try: 
-            res.append(np.cosh()
+    print("DONT USE")
+    #for t in range(len(avg)-1):
+    #    try: 
+    #        res.append(np.cosh())
