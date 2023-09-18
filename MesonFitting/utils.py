@@ -37,7 +37,7 @@ def log_eff_mass(c):
   avg=np.mean(c, axis=0)
   res=[]
   for t in range(len(avg)-1):
-    res.append(math.log(avg[t]/avg[t+1]))
+    res.append(np.log(avg[t]/avg[t+1]))
   return res
 
 def get_data(fileBase, gamma, NT):  
@@ -96,13 +96,13 @@ def get_best_cosh_fit(fitData, NT):
     ts = np.array([t for t in range(int(NT/2))])
 
     bestFit =   fit=lsqfit.nonlinear_fit(
-                    data=(ts[0:32+1],fitData[0][0:32+1],fitData[1][0:32+1,0:32+1]),
+                    data=(ts[1:32+1],fitData[0][1:32+1],fitData[1][1:32+1,1:32+1]),
                     fcn=cosh_nt,
                     p0={'a': 1.0, 'E': 0.2}
                 )
-    bestFitTimes = [0,32]
+    bestFitTimes = [1,32]
 
-    for ti in range(0,22):
+    for ti in range(1,22):
         for tf in range(26,32):
             if tf-ti>2:
 
@@ -121,13 +121,13 @@ def get_best_exp_fit(fitData, NT):
     ts = np.array([t for t in range(int(NT/2))])
 
     bestFit =   fit=lsqfit.nonlinear_fit(
-                    data=(ts[0:32+1],fitData[0][0:32+1],fitData[1][0:32+1,0:32+1]),
+                    data=(ts[1:32+1],fitData[0][1:32+1],fitData[1][1:32+1,1:32+1]),
                     fcn=three_exp,
                     p0={'a0': 1.0, 'E0': 0.2, 'a1': 0.001, 'E1': 0.05, 'a2': 0.1, 'E2': 2.2}
                 )
-    bestFitTimes = [0,32]
+    bestFitTimes = [1,32]
 
-    for ti in range(0,12):
+    for ti in range(1,12):
         for tf in range(22,32):
             if tf-ti>2:
 
